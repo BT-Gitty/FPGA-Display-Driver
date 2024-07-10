@@ -17,14 +17,81 @@ module beam_position #(
     output reg oDE,
     output reg oHS,
     output reg oVS,
-    output reg [12:0] oPos  //2^13 covers the amount of unique spaces needed for highest commercial res as of 2024
+    output reg [18:0] oPos  //2^19 covers the amount of unique spaces needed for 640x480
     );
     
-    localparam hPOS = 0;
-    localparam vPos = 0;
+    localparam H_END = H_VA + H_FP + H_SP + H_BP - 1;
+    localparam V_END = V_VA + V_FP + V_SP + V_BP - 1;
     
+    localparam HA_END = H_VA - 1;
+    localparam VA_END = V_VA - 1;
+    
+    localparam HS_START = HA_END + H_FP;
+    localparam HS_END = HS_START + H_SP;
+    
+    localparam VS_START = VA_END + V_FP;
+    localparam VS_END = VS_START + V_SP;
+    
+    reg [9:0] hPos = 0; //Up to 1,024
+    reg [8:0] vPos = 0; //Up to 512
+    
+    //Increment Beam Position
     always @(posedge iClk) begin
         if (iRst) begin
+            hPos = 0;
+            vPos = 0;
+        end
+        else begin
+            if (hPos == H_END) begin
+                hPos <= 0;
+                if (vPos == V_END) begin
+                    vPos <= 0;
+                end
+                else begin
+                    vPos <= vPos + 1'b1;
+                end
+            end
+            else begin
+                hPos <= hPos + 1'b1;
+            end
+        end
+    end
+    
+    //Signal Generation
+    always @(posedge iClk) begin
+        //Data Enable (Active LOW)
+        if (hPos == H_END || vPos == V_END) begin
+           oDE <= 0;
+        end
+        else if (hPos == HA_END && vPos > V_VA) begin
+            oDE <= 1;
+        end
+        
+        //Horizontal/Vertical Sync (Active LOW)
+        if (hPos == HS_START) begin
+            oHS <= 0;
+        end else if (hPos == HS_END) begin
+            oHS <= 1;
+        end
+        if (vPos == VS_START) begin
+            oVS <= 0;
+        end else if (vPos == VS_END) begin
+            oVS <= 1;
+        end
+    end
+    
+    //Increment Address Line
+    always @(posedge iClk) begin
+        if (iRst) begin
+            oPos = 0;
+        end
+        else begin
+            if (oDE == 0) begin
+                oPos <= oPos + 1'b1;
+            end
+            if (vPos == V_VA) begin
+                    oPos <= 0;
+            end
         end
     end
     
