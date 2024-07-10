@@ -7,4 +7,4 @@ Will support HDMI displays, but uses the [TFP410](https://www.ti.com/product/TFP
 First iteration will aim to only support 640x480 resolution. Signal timings for 60Hz can be found [here](http://tinyvga.com/vga-timing/640x480@60Hz).
 There is a 12-bit data input to the Pmod so only 12-bit colour is supported ~~but may be able to implement 24-bit colour mode by sending data using both rising and falling edges of clock.~~ 24-bit requires a different physical version of the Pmod.
 
-Display Driver uses in-built DDR3 memory from Spartan-7 chip to hold frame data, a controller will read out signals and addresses for the memory. Both will read into the DVI Pmod.
+Display Driver uses in-built DDR3 memory from Spartan-7 chip to hold frame data. A controller will read out signals and addresses for the memory, both will read into the DVI Pmod.
