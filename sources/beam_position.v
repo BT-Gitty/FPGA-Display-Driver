@@ -13,7 +13,6 @@ module beam_position #(
     (
     input iClk,
     input iRst,
-    output oClk,
     output reg oDE,
     output reg oHS,
     output reg oVS,
@@ -38,33 +37,40 @@ module beam_position #(
     //Increment Beam Position
     always @(posedge iClk) begin
         if (iRst) begin
-            hPos = 0;
-            vPos = 0;
-        end
-        else begin
-            if (hPos == H_END) begin
-                hPos <= 0;
-                if (vPos == V_END) begin
-                    vPos <= 0;
-                end
-                else begin
-                    vPos <= vPos + 1'b1;
-                end
+            hPos <= 0;
+            vPos <= 0;
+        end else begin
+    
+        if (hPos == H_END) begin
+            hPos <= 0;
+            if (vPos == V_END) begin
+                vPos <= 0;
             end
             else begin
-                hPos <= hPos + 1'b1;
+                vPos <= vPos + 1'b1;
             end
+        end
+        else begin
+            hPos <= hPos + 1'b1;
+        end
+        
         end
     end
     
     //Signal Generation
     always @(posedge iClk) begin
-        //Data Enable (Active LOW)
-        if (hPos == H_END || vPos == V_END) begin
-           oDE <= 0;
+        if (iRst) begin
+            oDE <= 0;
+            oHS <= 1;
+            oVS <= 1;
+        end else begin
+    
+        //Data Enable (Active HIGH)
+        if (hPos <= HA_END && vPos <= VA_END) begin
+           oDE <= 1;
         end
-        else if (hPos == HA_END && vPos > V_VA) begin
-            oDE <= 1;
+        else begin
+            oDE <= 0;
         end
         
         //Horizontal/Vertical Sync (Active LOW)
@@ -78,20 +84,23 @@ module beam_position #(
         end else if (vPos == VS_END) begin
             oVS <= 1;
         end
+        
+        end
     end
     
     //Increment Address Line
     always @(posedge iClk) begin
         if (iRst) begin
-            oPos = 0;
+            oPos <= 0;
+        end else begin
+        
+        if (oDE) begin
+            oPos <= oPos + 1'b1;
         end
-        else begin
-            if (oDE == 0) begin
-                oPos <= oPos + 1'b1;
-            end
-            if (vPos == V_VA) begin
-                    oPos <= 0;
-            end
+        if (vPos == VA_END && hPos == H_END) begin
+            oPos <= 0;
+        end
+        
         end
     end
     
