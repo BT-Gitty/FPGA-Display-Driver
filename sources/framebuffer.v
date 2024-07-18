@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps
 
-//Practice RTL Memory
-/*module framebuffer(
+module framebuffer(
+
+/*Practice RTL Memory
     input iClk,
     input iWE,
     input [18:0] iAddr,
@@ -9,9 +10,9 @@
     output reg [11:0] oData
     );
     
-    localparam addr_space = 307,200; //640x480
+    localparam addrSpace = 307200; //640x480 = 307200
     
-    reg [11:0] memory [0:addr_space - 1];
+    reg [11:0] memory [addrSpace - 1:0];
     
     always @(posedge iClk) begin
         if (iWE) begin
@@ -21,5 +22,8 @@
             oData <= memory[iAddr];
         end
     end
-    
-endmodule*/
+*/
+
+);
+
+endmodule
