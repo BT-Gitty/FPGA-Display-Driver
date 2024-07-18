@@ -1,6 +1,6 @@
 ## **FPGA Display Driver**
 
-Project created on Vivado 2024.1 version.
+Project based on Vivado 2024.1 version.
 
 [Diligent Arty S7-50](https://digilent.com/reference/programmable-logic/arty-s7/start).
 
