@@ -10,4 +10,7 @@ First iteration will aim to only support 640x480 resolution. Signal timings for 
 There is a 12-bit data input to the Pmod so only 12-bit colour is supported ~~but may be able to implement 24-bit colour mode by sending data using both rising and falling edges of clock.~~ 24-bit requires a different physical version of the Pmod.
 
 Display Driver uses DDR3 memory to hold frame data. A controller will read out signals and addresses for the memory to output data, both will read into the DVI Pmod.
-The MIG that interfaces with the DDR3 memory on-board is not practical to use without a MicroBlaze processor, this is unfortunate as I would have preferred to implement it in pure HDL (block RAM is not large enough to hold the framebuffer).
+
+The MIG that interfaces with the DDR3 memory on-board is not practical to use without using its AXI interface, this is unfortunate as I would have preferred to implement it in pure HDL (block RAM is not large enough to hold the framebuffer).
+
+This means I will have to convert my memory address readings into an AXI-stream (custom module or IP probably), then feed it into DMA S2MM to quickly communicate with the DDR3. I think the data also returns the same way.
