@@ -18,4 +18,4 @@ Display Driver uses DDR3 memory to hold frame data. A controller will read out s
 
 The MIG that interfaces with the DDR3 memory on-board is not practical to use without using its AXI interface, this is unfortunate as I would have preferred to implement it in pure HDL (block RAM is not large enough to hold the framebuffer).
 
-This means I will have to convert my memory address readings into an AXI-stream (custom module or IP probably), then feed it into DMA S2MM to quickly communicate with the DDR3. I think the data also returns the same way.
+This means I will have to convert my memory address readings into an AXI-stream (custom module probably), then feed it into DMA S2MM to quickly communicate with the DDR3. I think the data also returns the same way.
