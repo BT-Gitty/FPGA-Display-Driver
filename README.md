@@ -1,4 +1,4 @@
-## **FPGA Display Driver**
+# **FPGA Display Driver**
 
 Project based on Vivado 2024.1 version.
 
