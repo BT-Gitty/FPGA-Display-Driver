@@ -14,9 +14,7 @@ There is a 12-bit data input to the Pmod so only 12-bit colour is supported ~~bu
 ##
 Display Driver uses DDR3 memory to hold frame data. A controller will read out signals and addresses for the memory to output data, both will read into the DVI Pmod.
 
-~~The MIG that interfaces with the DDR3 memory on-board is not practical to use without using its AXI interface, this is unfortunate as I would have preferred to implement it in pure HDL (block RAM is not large enough to hold the framebuffer).~~
-
-For some reason, I just cannot get a bitsream when block diagram for my MicroBlaze system. Will re-approach in RTL but with no frame buffer (demo by streaming hard-written data instead).
+The MIG that interfaces with the DDR3 memory on-board is not practical to use without using its AXI interface, this is unfortunate as I would have preferred to implement it in pure HDL (block RAM is not large enough to hold the framebuffer).
 
 I may try to interface with the DDR3 module without AXI in future.
 ##
