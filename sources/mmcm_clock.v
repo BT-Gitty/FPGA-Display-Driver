@@ -2,7 +2,7 @@
 
 module mmcm_clock(
     input clk_in,
-    input reset,
+    input resetn,
     output clk_out
     
     );
@@ -75,7 +75,7 @@ module mmcm_clock(
     .CLKFBSTOPPED        (),
     .PWRDWN              (1'b0),
     .RST                 (reset_high));
-  assign reset_high = reset;
+  assign reset_high = ~resetn;
 // Clock Monitor clock assigning
 //--------------------------------------
  // Output buffering

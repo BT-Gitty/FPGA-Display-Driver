@@ -36,7 +36,7 @@ module beam_position #(
     
     //Increment Beam Position
     always @(posedge iClk) begin
-        if (iRst) begin
+        if (!iRst) begin
             hPos <= 0;
             vPos <= 0;
         end else begin

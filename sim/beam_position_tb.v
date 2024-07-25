@@ -21,9 +21,9 @@ module beam_position_tb();
     
     initial begin
         inClk = 1'b1;
-        Rst = 1'b1;
-        #10
         Rst = 1'b0;
+        #10
+        Rst = 1'b1;
     end
     
     always #19.84 inClk = ~inClk;

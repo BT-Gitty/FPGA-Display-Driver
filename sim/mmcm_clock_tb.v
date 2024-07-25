@@ -14,9 +14,9 @@ module mmcm_clock_tb();
     
     initial begin
         cust_clk = 1'b1;
-        rst = 1'b1;
-        #10
         rst = 1'b0;
+        #10
+        rst = 1'b1;
     end
     
     always #5 cust_clk = ~cust_clk;
