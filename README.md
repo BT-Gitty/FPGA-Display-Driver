@@ -20,3 +20,4 @@ Trying to implement Xilinx's MicroBlaze and other IPs deemed too unintuitive and
 
 I may try to interface with the DDR3 module without AXI in future.
 ##
+Possible expansion to use [STM32 Nucleo-C031C6](https://www.st.com/en/evaluation-tools/nucleo-c031c6.html) that sends alternating pixel data to FPGA over SPI/I2C/UART protocol.
